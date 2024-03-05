@@ -1,0 +1,50 @@
+import {Container, Navbar, Nav, Button} from "react-bootstrap";
+import { useNavigate} from "react-router-dom";
+// Recibir propiedades para saber si un usuario esta logueado,
+// asi como que funcion ejecutar al momento de desloquear
+const Header = ({isLoggedIn, logout}) => {
+    const navigation = useNavigate();
+    const handleLogout = () => {
+        // ejecutar algo..... que se desconecte al usuario
+        logout();
+        navigation('/')
+    }
+    return(
+        <div>
+            <Navbar bg="light" expand="lg" className="text-white">
+                    <Container>
+                        <Navbar.Brand href="/">CTC</Navbar.Brand>
+                        <Navbar.Toggle />
+                        <Navbar.Collapse id="basic=navbar=nav">
+                            <Nav className="me-auto">
+                                <Nav.Link href="/places">Places</Nav.Link>
+                                <Nav.Link href="/events">Events</Nav.Link>
+                            </Nav>
+                            <Nav className="justify-content-end flex-grow-1 pe-3">
+                                {/* mostrar informacion si el usuario no esta logueado, pagina de login, registro */}
+                                {!isLoggedIn && (
+                                    <>
+                                        <Nav.Link href="/login">Login</Nav.Link>
+                                        <Nav.Link href="/register">Register</Nav.Link>
+                                    </>
+                                )}
+
+                                {isLoggedIn &&(
+                                        <>
+                                            <Nav.Link href="/#">NombreUsuario</Nav.Link>
+                                            <Nav.Link href="/profile">Profile</Nav.Link>
+                                            <Button variant="outline-primary" onClick={handleLogout}>
+                                                Logout
+                                            </Button>
+                                        </>
+                                    )
+                                }
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+            </Navbar>
+        </div>
+    )
+}
+
+export default Header;

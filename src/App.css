@@ -1,0 +1,276 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navigation a {
+    margin-left: 20px;
+    font-size: 16px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .button:hover {
+    background-color: #0062cc;
+  }
+  
+  
+  .event {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .event:hover {
+    transform: translateY(-5px);
+  }
+  
+  .event-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 150px;
+    background-color: #ddd;
+    background-image: url('https://picsum.photos/200');
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .event-details {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .event-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .event-date {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .event-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .event-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .event-button:hover {
+    background-color: #0062cc;
+  }
+  
+  .event-details-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .event-image-container {
+    flex-shrink: 0;
+    width: 400px;
+    height: 300px;
+    margin-right: 20px;
+    background-color: #ddd;
+    background-image: url('https://picsum.photos/400/300');
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .event-details {
+    flex-grow: 1;
+  }
+  
+  .event-details-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .event-details-name {
+    font-size: 36px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  
+  .event-details-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .event-details-rating-star {
+    color: #ffd700;
+    margin-right: 5px;
+  }
+  
+  .event-details-description {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .event-details-info {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .event-details-info-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .event-details-info-icon {
+    color: #007bff;
+    margin-right: 5px;
+  }
+  
+  .event-details-info-label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .event-details-info-value {
+    font-size: 16px;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comments-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .comments-header-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  
+  .comments-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .comments-form-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    margin-right: 20px;
+  }
+  
+  .comments-form-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .comments-form-button:hover {
+    background-color: #0062cc;
+  }
+  
+  .comment {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .comment-header-user {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .comment-header-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .comment-header-rating-star {
+    color: #ffd700;
+    margin-right: 5px;
+  }
+  
+  .comment-body {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
