@@ -34,7 +34,7 @@ const ReviewsApi = ({place}) => {
         <div className="m-5">
             <Container>
             <Row xs={1} md={2} className="g-4">
-            {reviewsDelLugar.map((review)=>
+            {reviewsDelLugar && reviewsDelLugar.length > 0 && reviewsDelLugar.map((review)=>
                     <Col key={review.id} >
                         <Card>
                             <Card.Body>

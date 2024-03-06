@@ -13,12 +13,13 @@ const Header = ({isLoggedIn, logout}) => {
         <div>
             <Navbar bg="light" expand="lg" className="text-white">
                     <Container>
-                        <Navbar.Brand href="/">CTC</Navbar.Brand>
+                        <Navbar.Brand href="/"><a href="/"><img src="src\images\icon.png" width={50} className="logo" alt=""/></a>History Hunters</Navbar.Brand>
                         <Navbar.Toggle />
                         <Navbar.Collapse id="basic=navbar=nav">
                             <Nav className="me-auto">
-                                <Nav.Link href="/places">Places</Nav.Link>
+                                <Nav.Link href="/places">Lugares</Nav.Link>
                                 <Nav.Link href="/events">Events</Nav.Link>
+                                <Nav.Link href="/">Objetos</Nav.Link>
                             </Nav>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
                                 {/* mostrar informacion si el usuario no esta logueado, pagina de login, registro */}
