@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Button  from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-
+import initialState from "../../data/initialState";
 const Register = ({handleRegister}) => {
     const navigation = useNavigate();
     const [user, setUser] = useState({
@@ -15,6 +15,7 @@ const Register = ({handleRegister}) => {
     })
 
     // funciones handler
+    const [state, setState] = useState(initialState);
 
     const handleChange = (e) => {
         // cambiar o actualizar los datos del objeto user
@@ -49,11 +50,10 @@ const Register = ({handleRegister}) => {
         })
 
         result = await result.json()
-        localStorage.setItem("user-info",JSON.stringify(result))
-        console.log("Result", result);
+        localStorage.setItem("user-info",JSON.stringify(oneUser))
         navigation('/')
-
-
+        setState(initialState.currentUser = oneUser)
+        
     }
     return (
         <div>
@@ -65,6 +65,7 @@ const Register = ({handleRegister}) => {
                             Name
                         </Form.Label>
                         <Form.Control
+                        required
                         type="name"
                         placeholder="Name"
                         value={user.name}
@@ -77,6 +78,7 @@ const Register = ({handleRegister}) => {
                             Last Name
                         </Form.Label>
                         <Form.Control
+                        required
                         type="lastname"
                         placeholder="Last Name"
                         value={user.lastname}
@@ -89,6 +91,7 @@ const Register = ({handleRegister}) => {
                             Address
                         </Form.Label>
                         <Form.Control
+                        required
                         type="address"
                         placeholder="Address"
                         value={user.address}
@@ -101,6 +104,7 @@ const Register = ({handleRegister}) => {
                             Email
                         </Form.Label>
                         <Form.Control
+                        required
                         type="email"
                         placeholder="Email"
                         value={user.email}
@@ -113,6 +117,7 @@ const Register = ({handleRegister}) => {
                             Password
                         </Form.Label>
                         <Form.Control
+                        required
                         type="password"
                         placeholder="Password"
                         value={user.password}

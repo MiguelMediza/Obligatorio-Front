@@ -4,6 +4,7 @@ import Footer from "./footer";
 // importar componentes de boostrap
 import {Container, Row, Col} from "react-bootstrap";
 
+
 const Layout = ({children, isLoguedIn, logout}) => {
     return (
     <div className="app">

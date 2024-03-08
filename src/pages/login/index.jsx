@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Button  from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import initialState from "../../data/initialState";
 
 const Login = ({handleLogin}) => {
     const navigation = useNavigate();
@@ -9,6 +10,27 @@ const Login = ({handleLogin}) => {
         email: "",
         password: ""
     })
+
+    useEffect(() =>{
+        if(localStorage.getItem('user-info')){
+            navigation('/');
+        }
+    }, []);
+
+    async function login(){
+        let result = await fetch("https://history-hunters-api.onrender.com/users/login",{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json",
+                "Accept":'application/json'
+            },
+            body:JSON.stringify(user)
+
+        });
+        result = await result.json();
+        localStorage.setItem("user-info",JSON.stringify(result.data.user))
+        navigation('/')
+    }
 
     const handleChange = (e) => {
         // cambiar o actualizar los datos del objeto user
@@ -19,7 +41,7 @@ const Login = ({handleLogin}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // llamar a una funcion que se encargue procesar registro
+        login();
         handleLogin(user)
         navigation('/places')
     }

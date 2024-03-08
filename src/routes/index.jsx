@@ -5,7 +5,6 @@ import Layout from "../components/layout";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Profile from "../pages/profile";
-import Details from "../pages/details";
 import DetailEvent from "../pages/detailEvent"
 
 // importar las paginas que ahora llaman a un api rest
@@ -14,18 +13,17 @@ import EventsApi from "../pages/api/events";
 import DetailsApi from "../pages/api/details"
 
 import initialState from "../data/initialState";
-
+    const tokenString = localStorage.getItem('user-info');
+    const userToken = JSON.parse(tokenString);
 const Router = () => {
     // definir un estado que almacene el estado inicial
     const [state, setState] = useState(initialState);
-
     const handleLogout = () => {
         setState((prevState) => ({
             ...prevState,
             currentUser: null
         }))
     }
-
 
     const handleRegister = (user) => {
         setState((prevState) => ({
@@ -37,8 +35,10 @@ const Router = () => {
     const handleLogin = (user) => {
         setState((prevState) => ({
             ...prevState,
-            currentUser: user
+            currentUser: user,
         }))
+
+
     }
 
     const getAllEvents = () => {
@@ -46,9 +46,10 @@ const Router = () => {
         return events
     }
 
+
     return(
         <BrowserRouter>
-            <Layout isLoguedIn={state.currentUser} logout={handleLogout}>
+            <Layout logout={handleLogout}>
                 <Routes>
                     {/* pasar informacion para componentes */}
                     <Route path="/" element={<PlacesApi />} />

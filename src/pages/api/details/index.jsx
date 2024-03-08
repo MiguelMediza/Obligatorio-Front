@@ -47,7 +47,7 @@ const  DetailsApi = () => {
                         </Card>
                         
                                 <>
-                                    <h2>Reviews</h2>
+                                    
                                     <ReviewsApi place={place} />
                                 </>
                        

@@ -1,12 +1,23 @@
+import { useEffect, useState } from "react";
 import {Container, Navbar, Nav, Button} from "react-bootstrap";
 import { useNavigate} from "react-router-dom";
+
 // Recibir propiedades para saber si un usuario esta logueado,
 // asi como que funcion ejecutar al momento de desloquear
 const Header = ({isLoggedIn, logout}) => {
     const navigation = useNavigate();
     const handleLogout = () => {
-        // ejecutar algo..... que se desconecte al usuario
         logout();
+        navigation('/')
+    }
+    const tokenString = localStorage.getItem('user-info');
+    const userToken = JSON.parse(tokenString);
+    if(userToken != null){
+        isLoggedIn= true
+    };
+
+    function logout(){
+        localStorage.removeItem("user-info");
         navigation('/')
     }
     return(
@@ -32,7 +43,7 @@ const Header = ({isLoggedIn, logout}) => {
 
                                 {isLoggedIn &&(
                                         <>
-                                            <Nav.Link href="/#">NombreUsuario</Nav.Link>
+                                            <Nav.Link href="/#">{userToken.name}</Nav.Link>
                                             <Nav.Link href="/profile">Profile</Nav.Link>
                                             <Button variant="outline-primary" onClick={handleLogout}>
                                                 Logout
