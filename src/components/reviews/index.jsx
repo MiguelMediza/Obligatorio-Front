@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import {Container, Col, Row} from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import {getAllReviews} from "../../../data/api"
+import { getAllReviews } from '../../data/api';
 
 const ReviewsApi = ({place}) => {
     const navigation = useNavigate();

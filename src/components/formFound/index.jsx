@@ -1,118 +1,89 @@
 import React from 'react'
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Container, Row, Col} from "react-bootstrap"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import { useNavigate } from "react-router-dom";
 import Error from "../error"
 
-const addFormFound = ({place}) => {
+
+const AddFormFound = ({places}) => {
     const navigation = useNavigate();
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
     const [option, setOption] = useState();
+    const today = new Date();
+    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+
+
     const cleanForm = () =>{
-        setPlace("");
+        setFound("");
     }
 
-    const handleImageChange = (e) => {
-        var imageUrl = e.target.value;
-        setPlace({ ...place, images: [{ url: imageUrl }] });
-      };
     const validateForm = () =>{
-        if(place.name.trim() === ""){
+        if(found.name.trim() === ""){
             setError(true)
             setErrorMessage("Debes ingresar un nombre!")
             return false
         }
-        if(place.description.trim()==""){
+        if(found.description.trim()==""){
             setError(true)
             setErrorMessage("Debes ingresar una descripción!")
             return false
         }
-        if(place.address.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar una dirección!")
-            return false
-        }
-        if(place.latitude.valueOf() == 0 ){
-            setError(true)
-            setErrorMessage("Debes ingresar una latitude!")
-            return false
-        }
-        if(place.longitude.valueOf() == 0){
-            setError(true)
-            setErrorMessage("Debes ingresar una longitude!")
-            return false
-        }
-        if(place.location.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar una location!")
-            return false
-        }
-        if(place.type.trim()==""){
+        if(found.type.trim()==""){
             setError(true)
             setErrorMessage("Debes ingresar un tipo!")
             return false
         }
-        if(place.characteristics.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar una caracteristica!")
-            return false
-        }
-        if(place.score.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar un score!")
-            return false
-        }
-        if(place.country.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar un country!")
-            return false
-        }
-        if(place.region.trim()==""){
+        if(found.region.trim()==""){
             setError(true)
             setErrorMessage("Debes ingresar una región!")
+            return false
+        }
+        if(found.city.trim()==""){
+            setError(true)
+            setErrorMessage("Debes ingresar una ciudad!")
+            return false
+        }
+        if(found.country.trim()==""){
+            setError(true)
+            setErrorMessage("Debes ingresar un país!")
             return false
         }
 
         return true
     }
 
-    const[place, setPlace] = useState({
+    const[found, setFound] = useState({
+        placeId: "",
         userId: userToken.id,
         name: "",
         description: "",
-        address: "",
-        latitude: 0,
-        longitude: 0,
+        date: formattedDate,
         images: [],
-        location: "",
         type: "",
-        characteristics: "",
-        score: 0,
-        country: "",
-        region: ""
+        region: "",
+        city: "",
+        country: ""
     })
 
-    const handleAddPlace = (e) => {
+    const handleAddFound = (e) => {
         e.preventDefault()
         if(!validateForm()){
             return
         }
 
-        AgregarPlace();
+        AgregarFound();
 
     }
 
-
-
-    async function AgregarPlace(){
-        let result = await fetch("https://history-hunters-api.onrender.com/places/add",{
+    async function AgregarFound(){
+        let result = await fetch("https://history-hunters-api.onrender.com/founds/add",{
             method: 'POST',
-            body:JSON.stringify(place),
+            body:JSON.stringify(found),
             headers:{
                 "Content-Type":'application/json',
                 "Accept": 'application/json'
@@ -120,89 +91,85 @@ const addFormFound = ({place}) => {
         })
 
         result = await result.json()
-        navigation(`/`)
+        console.log(result);
+        // navigation(`/`)
         {/*Agregar mensaje de que se a creado correctamente o fallo */}
     }
 
-    const onAddPlace = (e) => {
+    const handleImageChange = (e) => {
+        var imageUrl = e.target.value;
+        setFound({ ...found, images: [{ url: imageUrl }] });
+      };
+
+
+    const onAddFund = (e) => {
         e.preventDefault()
         const value = e.target.value;
         const element = e.target.id;
-        setPlace({...place, [element]: value})
+        setFound({...found, [element]: value})
+        console.log(found);
     }
 
+    if (places == undefined) {
+  return console.log("Cargando Datos...");
+    }
+    else{
+        var nuevoArray = places.map((place) => ({
+            id: place.id,
+            name: place.name,
+          }));
+    }
 
+    console.log(found);
     return (
    
         <Container>
             <Row>
                 <Col>
                 <div className="m-3">
-                <h1>Add Place</h1>
-                    <Form className="m-2" onSubmit={handleAddPlace}>
+                <h1>Add Found</h1>
+                    <Form className="m-2" onSubmit={handleAddFound}>
                     {error && 
                 <Error>
                     {errorMessage}
                 </Error>}
-                        <Form.Group controlId="name">
+                        <Form.Group controlId="placeId">
+                        <Form.Label>
+                                Place ID
+                            </Form.Label>
+
+                        <Form.Select aria-label="Place id" onChange={onAddFund} value={found.placeId}>
+                            <option value="">Seleccione un place</option>
+                            {nuevoArray.map((place) => (
+                                <option key={place.id} value={place.id}>
+                                    {place.id} {place.name}
+                                </option>
+                            ))}
+                        </Form.Select>
+                        </Form.Group>
+                        <Form.Group controlId='name'>
                             <Form.Label>
-                                Place name
+                                Found name
                             </Form.Label>
 
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance name"
-                                value={place.name}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance name"
+                                value={found.name}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
 
                         <Form.Group controlId="description">
                             <Form.Label>
-                                Place description
+                                Found description
                             </Form.Label>
 
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance description"
-                                value={place.description}
-                                onChange={onAddPlace}
-                            />
-                        </Form.Group>
-
-                        <Form.Group controlId="address">
-                            <Form.Label>
-                                Address
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter plance address"
-                                value={place.address}
-                                onChange={onAddPlace}
-                            />
-                        </Form.Group>
-
-                        <Form.Group controlId="latitude">
-                            <Form.Label>
-                                Latitude
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter plance latitude"
-                                value={place.latitude}
-                                onChange={onAddPlace}
-                            />
-                        </Form.Group>
-
-                        <Form.Group controlId="longitude">
-                            <Form.Label>
-                                Longitude
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter plance loongitude"
-                                value={place.longitude}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance description"
+                                value={found.description}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
 
@@ -217,51 +184,41 @@ const addFormFound = ({place}) => {
                                 onChange={handleImageChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="location">
-                            <Form.Label>
-                                Location
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter plance location"
-                                value={place.location}
-                                onChange={onAddPlace}
-                            />
-                        </Form.Group>
-
+                        
                         <Form.Group controlId="type">
                             <Form.Label>
                                 Type
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance type"
-                                value={place.type}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance type"
+                                value={found.type}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
-
-                        <Form.Group controlId="characteristics">
+                        
+                        <Form.Group controlId="region">
                             <Form.Label>
-                                Characteristics
+                                Region
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance characteristics"
-                                value={place.characteristics}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance region"
+                                value={found.region}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="score">
+
+                        <Form.Group controlId="city">
                             <Form.Label>
-                                Score
+                                City
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance Score"
-                                value={place.score}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance city"
+                                value={found.city}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
 
@@ -271,26 +228,15 @@ const addFormFound = ({place}) => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance country"
-                                value={place.country}
-                                onChange={onAddPlace}
+                                foundholder="Enter plance country"
+                                value={found.country}
+                                onChange={onAddFund}
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="region">
-                            <Form.Label>
-                                Region
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter plance region"
-                                value={place.region}
-                                onChange={onAddPlace}
-                            />
-                        </Form.Group>
 
                         <Button variant="primary" type="submit" className="m-2">
-                            Add Place
+                            Add Found
                         </Button>
 
                     </Form>
@@ -303,4 +249,4 @@ const addFormFound = ({place}) => {
         )
 }
 
-export default addFormFound
+export default AddFormFound

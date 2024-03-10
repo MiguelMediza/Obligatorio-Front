@@ -19,14 +19,21 @@ const FoundsForPlace = ({place}) => {
     }, [])
     
 
+    const handleClick = (event, id) => {
+        event.preventDefault();
+        // TODO redirigir a la página de detalle
+        navigation(`/detailsFound/${id}`);
+    }
+
         return (
 
             <div className="m-5">
                 <Container>
+                    <h1 className='text-center'>Objetos encontrados en este lugar</h1>
                     {/* TODO crear comoponente busqueda y agregarlo */}
                     <Row xs={1} md={2} className="g-4">
                         {FoundsPlace.map((found) => <Col key={found.id}>
-                            <Card>
+                            <Card onClick={(event) => handleClick(event, found.id)}>
                                 <Card.Img variant="top" src={found.images[0].url} />
                                 <Card.Body>
                                     <Card.Title>{found.name}</Card.Title>

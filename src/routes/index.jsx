@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/layout";
 // Paginas anteriores
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Profile from "../pages/profile";
-import DetailEvent from "../pages/detailEvent"
-
+import { getAllPlaces } from "../data/api";
 // importar las paginas que ahora llaman a un api rest
 import PlacesApi from "../pages/api/places";
-import EventsApi from "../pages/api/events";
 import DetailsApi from "../pages/api/details"
 import Founds from "../pages/api/founds";
-
+import DetailsFound from '../pages/api/detailsFound'
 import initialState from "../data/initialState";
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
@@ -42,6 +40,14 @@ const Router = () => {
 
     }
 
+    const [places, setPlaces] = useState();
+    useEffect(() => {
+        const fetchPlaces = async () => {
+             const response = await getAllPlaces()
+             setPlaces(response.data)
+        }
+        fetchPlaces().then()
+     }, [])
 
     return(
         <BrowserRouter>
@@ -53,9 +59,9 @@ const Router = () => {
                     <Route path="/founds" element={<Founds />} />
                     <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
                     <Route path="/register" element={<Register handleRegister={handleRegister}/>} />
-                    <Route path="/profile" element={<Profile/>} />
+                    <Route path="/profile" element={<Profile places={places}/>} />
                     <Route path="/details/:id" element={<DetailsApi />} />
-                    <Route path="/details/:id/event/:ide" element={<DetailEvent places={state.places}/>} />
+                    <Route path="/detailsFound/:id" element={<DetailsFound />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

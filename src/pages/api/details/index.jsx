@@ -3,7 +3,7 @@ import {Container, Col, Row, Card} from "react-bootstrap";
 // importar la funcion que se encarga de traer todo los places
 import {getPlaceById} from "../../../data/api"
 import { useParams } from 'react-router-dom';
-import ReviewsApi from "../reviews";    
+import ReviewsApi from "../../../components/reviews";    
 import FoundsForPlace from "../../../components/FoundsForPlace";
 const  DetailsApi = () => {
 

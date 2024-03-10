@@ -39,6 +39,15 @@ const getAllFounds = async () => {
     }
 }
 
+const getFoundById = async (id) => {
+    try {
+        const response = await fetch(`${URL}/founds/${id}`)
+        return await response.json()
+    }catch(error) {
+        console.log("On getFoundById", error)
+    }
+}
+
 
 
 const getPlaceByUser = async(id) =>{
@@ -76,5 +85,6 @@ export {
     getAllReviews,
     getAllFounds,
     getPlaceByUser,
+    getFoundById
 
 }

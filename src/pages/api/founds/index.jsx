@@ -33,7 +33,7 @@ const Founds = () => {
     const handleClick = (event, id) => {
         event.preventDefault();
         // TODO redirigir a la página de detalle de founds
-        navigation(`/details/${id}`);
+        navigation(`/detailsFound/${id}`);
     }
 
     const handleChange = (event)=> {
@@ -46,7 +46,7 @@ const Founds = () => {
             <div className="m-5">
                 <Container>
                     {/* TODO crear comoponente busqueda y agregarlo */}
-
+                    <h1 className='text-center'>Objetos encontrados por la comunidad</h1>
                     <Search value={search} onChange={handleChange} />
                     <Row xs={1} md={2} className="g-4">
                         {filteredFounds.map((found) => <Col key={found.id}>
