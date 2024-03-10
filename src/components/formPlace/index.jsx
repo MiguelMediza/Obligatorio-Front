@@ -5,13 +5,13 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import { useNavigate } from "react-router-dom";
 import Error from "../error"
+import Accordion from 'react-bootstrap/Accordion';
 const AddPlaceForm = () => {
     const navigation = useNavigate();
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
-    const [option, setOption] = useState();
     const cleanForm = () =>{
         setPlace("");
     }
@@ -102,6 +102,7 @@ const AddPlaceForm = () => {
             return
         }
 
+
         AgregarPlace();
 
     }
@@ -119,6 +120,9 @@ const AddPlaceForm = () => {
         })
 
         result = await result.json()
+        if(result.status == 201){
+            alert(result.message)
+        }
         navigation(`/`)
         {/*Agregar mensaje de que se a creado correctamente o fallo */}
     }
@@ -132,12 +136,18 @@ const AddPlaceForm = () => {
 
 
     return (
-   
+        <Accordion defaultActiveKey="">
         <Container>
+            
+
             <Row>
                 <Col>
+                <h1 className="text-red-600	">Add Place</h1>
+                <Accordion.Item eventKey="0">
+                <Accordion.Header>Click for add place</Accordion.Header>
+                <Accordion.Body>
                 <div className="m-3">
-                <h1>Add Place</h1>
+                
                     <Form className="m-2" onSubmit={handleAddPlace}>
                     {error && 
                 <Error>
@@ -288,16 +298,19 @@ const AddPlaceForm = () => {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" className="m-2">
+                        <Button variant="primary" type="submit" className="m-2 text-center">
                             Add Place
                         </Button>
 
                     </Form>
                 </div>
+                </Accordion.Body>
+                </Accordion.Item>
                 </Col>
             </Row>
+
             </Container>
-        
+            </Accordion>
                
         )
     }

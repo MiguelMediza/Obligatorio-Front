@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import { useNavigate } from "react-router-dom";
 import Error from "../error"
-
+import Accordion from 'react-bootstrap/Accordion';
 
 const AddFormFound = ({places}) => {
     const navigation = useNavigate();
@@ -122,12 +122,16 @@ const AddFormFound = ({places}) => {
     }
 
     return (
-   
+        <Accordion defaultActiveKey="">
         <Container>
             <Row>
                 <Col>
-                <div className="m-3">
                 <h1>Add Found</h1>
+                <Accordion.Item eventKey="0">
+                <Accordion.Header>Click for add found</Accordion.Header>
+                <Accordion.Body>
+                <div className="m-3">
+                
                     <Form className="m-2" onSubmit={handleAddFound}>
                     {error && 
                 <Error>
@@ -241,9 +245,12 @@ const AddFormFound = ({places}) => {
 
                     </Form>
                 </div>
+                </Accordion.Body>
+                </Accordion.Item>
                 </Col>
             </Row>
             </Container>
+            </Accordion>
         
                
         )

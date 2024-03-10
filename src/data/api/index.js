@@ -67,6 +67,14 @@ const getFoundByUser = async(id) =>{
     } 
 }
 
+const getCommentsForUser = async(id) =>{
+    try {
+        const response = await fetch(`${URL}/comments/user/${id}`)
+        return await response.json()
+    }catch(error) {
+        console.log("On getCommentsForUser", error)
+    } 
+}
 
 
 const getPlaceByUser = async(id) =>{
@@ -106,6 +114,7 @@ export {
     getPlaceByUser,
     getFoundById,
     getFoundByUser,
-    getAllComments
+    getAllComments,
+    getCommentsForUser
 
 }

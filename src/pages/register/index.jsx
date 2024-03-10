@@ -3,8 +3,11 @@ import Button  from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import initialState from "../../data/initialState";
+import Example from '../../components/alerts'
 const Register = ({handleRegister}) => {
     const navigation = useNavigate();
+    const [alertSucces, setAlert] = useState(false);
+    const [alertDesmiss, setAlertDesmiss] = useState(false);
     const [user, setUser] = useState({
         id:5,
         name: "",
@@ -28,7 +31,6 @@ const Register = ({handleRegister}) => {
         e.preventDefault();
         singUp();
         handleRegister(user)
-        navigation('/places')
     }
 
     async function singUp(){
@@ -48,21 +50,32 @@ const Register = ({handleRegister}) => {
                 "Accept": 'application/json'
             }
         })
-
         result = await result.json()
-        localStorage.setItem("user-info",JSON.stringify(oneUser))
-        console.log(result);
-        
-        localStorage.removeItem("user-info");
-        navigation('/login')
-        alert(`${result.message}`)
-        setState(initialState.currentUser = oneUser)
-
-        {/*Insertar mensaje de creacion correctamente o no, debera logouearse nuevamente */}
+        console.log(result.message);
+        if(result.message =="Account created successfully"){
+            localStorage.setItem("user-info",JSON.stringify(oneUser))
+            localStorage.removeItem("user-info");
+            setAlert(true);
+            setState(initialState.currentUser = oneUser)
+        }
+        else{
+            setAlertDesmiss(true);
+        }
         
     }
     return (
         <div>
+            {alertSucces &&(
+                <>
+                    <Example title={"Registrado correctamente!"} mensaje={"Se te redirigirá a logueo"} estado ={true} lugar={"register"}/>
+                </>
+                )}
+
+            {alertDesmiss &&(
+                <>
+                    <Example title={"Error!!"} mensaje={"Error al registrarse, vuelva a intentar!"} estado ={false} lugar={"register"}/>
+                </>
+            )}
             <h2>Register</h2>
             <div className="col-4 mx-auto m-5">
                 <Form onSubmit={handleSubmit}>

@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import Button  from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import initialState from "../../data/initialState";
-
+import Example from '../../components/alerts'
 const Login = ({handleLogin}) => {
     const navigation = useNavigate();
+    const [alertSucces, setAlert] = useState(false);
+    const [alertDesmiss, setAlertDesmiss] = useState(false);
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -28,10 +29,17 @@ const Login = ({handleLogin}) => {
 
         });
         result = await result.json();
-        alert(`${result.message}`)
-        localStorage.setItem("user-info",JSON.stringify(result.data.user))
-        navigation('/')
+        if(result.status == 200){
+            setAlert(true);
+            localStorage.setItem("user-info",JSON.stringify(result.data.user))
+        }
+        else{
+            setAlertDesmiss(true);
+        }
+        
+
     }
+
 
     const handleChange = (e) => {
         // cambiar o actualizar los datos del objeto user
@@ -44,11 +52,24 @@ const Login = ({handleLogin}) => {
         e.preventDefault();
         login();
         handleLogin(user)
-        navigation('/places')
     }
 
     return (
         <div>
+                    {alertSucces &&(
+                                        <>
+                                            <Example title={"Logueaste correctamente!"} mensaje={"Se te redirigirá al inicio"} estado ={true}/>
+                                        </>
+                                    )
+                                }
+
+                    {alertDesmiss &&(
+                                        <>
+                                            <Example title={"Error!!"} mensaje={"Error al loguearse, vuelva a intentar!"} estado ={false} lugar={"login"}/>
+                                        </>
+                                    )
+                                }
+            
             <h2>Login</h2>
             <div className="col-4 mx-auto m-5">
                 <Form onSubmit={handleSubmit}>

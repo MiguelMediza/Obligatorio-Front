@@ -5,6 +5,7 @@ import AddPlaceForm from "../../components/formPlace";
 import PlacesForUser from "../../components/placesUser";
 import AddFormFound from "../../components/formFound"
 import FoundForUser from "../../components/foundUser";
+import CommentsForUser from "../../components/commentsForUser"
 const Profile = ({places}) => { 
     const navigation = useNavigate();
 
@@ -15,6 +16,7 @@ const Profile = ({places}) => {
             <PlacesForUser/>
             <AddFormFound places={places}/>
             <FoundForUser/>
+            <CommentsForUser/>
         </Container>
     )
 }
