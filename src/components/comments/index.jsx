@@ -3,23 +3,23 @@ import {useState, useEffect} from 'react'
 import {Container, Col, Row} from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getAllReviews } from '../../data/api';
+import { getAllComments } from '../../data/api';
 
-const ReviewsApi = ({place}) => {
+const Comments = ({place}) => {
     const navigation = useNavigate();
-    const [reviews, setReviews] = useState([])
+    const [comments, setComments] = useState([])
 
 
     useState(() => {
         const fetchReviews = async () => {
-            const response = await getAllReviews()
-            setReviews(response.data)
+            const response = await getAllComments()
+            setComments(response.data)
         }
         fetchReviews().then()
     }, [])
 
 
-    const reviewsDelLugar = reviews.filter((review) => review.placeId === place.id);
+    const commentsDelLugar = comments.filter((comment) => comment.placeId === place.id);
     //Realizar con un click enviar al perfil del que hizo el comentario
     // const handleClick = (e, placeId, eventId) => {
     //     e.preventDefault();
@@ -32,23 +32,23 @@ const ReviewsApi = ({place}) => {
     return (
         <div className="m-5">
             <Container>
-            <Row xs={1} md={2} className="g-4">
-            {reviewsDelLugar && reviewsDelLugar.length > 0 ? 
+            <Row xs={1} md={3} className="g-4">
+            {commentsDelLugar && commentsDelLugar.length > 0 ? 
             (
                 <div>
-                    <h1>Reviews</h1>
+                    <h1>Comments</h1>
                     {
-                        reviewsDelLugar.map((review) =>(
+                        commentsDelLugar.map((comment) =>(
                             <>
                             
-                            <Col key={review.id} >
+                            <Col key={comment.id} className='text-center' >
                             <Card className='mb-2'>
                                 <Card.Body>
-                                    <Card.Title>{review.review}</Card.Title>
-                                    <Card.Text>
-                                        Calificación: {review.rating} Stars
-                                    </Card.Text>
+                                    <Card.Title>{comment.comment}</Card.Title>
                                 </Card.Body>
+                                <Card.Text>
+                                        Usuario: {comment.userId} 
+                                    </Card.Text>
                             </Card>
                             </Col>
                             </>
@@ -68,4 +68,4 @@ const ReviewsApi = ({place}) => {
     )
 }
 
-export default ReviewsApi
+export default Comments

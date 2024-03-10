@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Search from "../../../components/search";
 // importar la funcion que se encarga de traer todo los places
 import {getAllPlaces} from "../../../data/api"
-import Form from "react-bootstrap/Form"; 
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
 const PlacesApi = ({isLoggedIn}) => {
     const navigation = useNavigate();
     const [places, setPlaces] = useState([]);
@@ -29,20 +26,29 @@ const PlacesApi = ({isLoggedIn}) => {
     }, [])
 
     
-    // effecto
+    //Filtrar por name
+
     useEffect(() => {
         if(search === "") {
             setFilteredPlaces(places)
         }else {
+
             const filtered = places.filter(place => place.name.toLowerCase().includes(search.toLowerCase() ))
-            setFilteredPlaces(filtered)
+            const set1 = new Set(filtered)
+            const filtered2 = places.filter(place => place.type.toLowerCase().includes(search.toLowerCase() ))
+            const set2 = new Set(filtered2)
+            const combinedSet = new Set([...set1, ...set2]);
+            const combinedArray = Array.from(combinedSet);
+            setFilteredPlaces(combinedArray)
         }
     }, [places, search])
+    //#endregion
 
+
+    //#endregion
     
     const handleClick = (event, id) => {
         event.preventDefault();
-        // TODO redirigir a la página de detalle
         navigation(`/details/${id}`);
     }
 
@@ -51,29 +57,16 @@ const PlacesApi = ({isLoggedIn}) => {
         setSearch(value)
     }
 
-        const paisesUnicos = [...new Set(places.map((place) => place.location))];
         return (
 
             <div className="m-5">
                 <Container>
                     {/* TODO crear comoponente busqueda y agregarlo */}
 
-                    <Form>
-                        <Form.Label>Select Location</Form.Label>
-                        <Form.Select aria-label="Place id" value={location} onChange={handleChange}>
-                            <option value="" disabled selected="selected">Select Location</option>
-                            {paisesUnicos.map((location, index) => (
-
-                                <option key={index} value={location}>
-                                    {location}
-                                </option>
-                            ))}
-                        </Form.Select>
-
-                    </Form>
                     <Search value={search} onChange={handleChange} />
                     <Row xs={1} md={2} className="g-4">
-                        {filteredPlaces.map((place) => <Col key={place.id}>
+                        {filteredPlaces.map((place) => 
+                        <Col key={place.id}>
                             <Card onClick={(event) => handleClick(event, place.id)}>
                                 <Card.Img variant="top" src={place.images[0].url} />
                                 <Card.Body>
@@ -95,21 +88,6 @@ const PlacesApi = ({isLoggedIn}) => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                                {isLoggedIn &&(
-                                    <>
-                                        <InputGroup className="mb-3">
-                                            <Form.Control
-                                            placeholder="Comentario"
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
-                                            />
-                                            <Button variant="outline-secondary" id="button-addon2">
-                                            Enviar
-                                            </Button>
-                                        </InputGroup>
-                                    </>
-                                 )
-                                }
                         </Col>
                         )}
                     </Row>

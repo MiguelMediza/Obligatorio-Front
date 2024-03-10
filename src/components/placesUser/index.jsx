@@ -61,16 +61,19 @@ const PlacesForUser = () => {
         const value = event.target.value
         setSearch(value)
     }
-
+    const PlacesDelUser = places.filter((place) => place.userId === userToken.id);
   return (
     <div className="m-5">
     <Container>
         {/* TODO crear comoponente busqueda y agregarlo */}
-        <h1 className='text-center'>Mis places</h1>
-        <Search value={search} onChange={handleChange} />
+
         
         <Row xs={1} md={2} className="g-4">
-            
+        {PlacesDelUser && PlacesDelUser.length > 0 ? 
+            (
+                <>
+                    <h1 className='text-center'>Mis places</h1>
+                    <Search value={search} onChange={handleChange} />
             {filteredPlaces.map((place) => <Col key={place.id}>
                 <Card onClick={(event) => handleClick(event, place.id)}>
                     <Card.Img variant="top" src={place.images[0].url} />
@@ -96,6 +99,14 @@ const PlacesForUser = () => {
                 </Card>
                 <Button variant="outline-danger" onClick={(event) => EliminarPlace(event, place.id)}>Eliminar</Button>
             </Col>
+            
+            )}
+            </>
+            ) :
+            (
+                <>
+                    <h5 className='text-center'>No hay places agregados de momento...</h5>
+                </>
             )}
         </Row>
     </Container>

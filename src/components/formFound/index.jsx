@@ -18,11 +18,12 @@ const AddFormFound = ({places}) => {
     const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
 
 
-    const cleanForm = () =>{
-        setFound("");
-    }
-
     const validateForm = () =>{
+        if(document.getElementById("placeId").value == ""){
+            setError(true)
+            setErrorMessage("Debes ingresar un id de place!")
+            return false
+        }
         if(found.name.trim() === ""){
             setError(true)
             setErrorMessage("Debes ingresar un nombre!")
@@ -92,7 +93,7 @@ const AddFormFound = ({places}) => {
 
         result = await result.json()
         console.log(result);
-        // navigation(`/`)
+        navigation(`/`)
         {/*Agregar mensaje de que se a creado correctamente o fallo */}
     }
 
@@ -120,7 +121,6 @@ const AddFormFound = ({places}) => {
           }));
     }
 
-    console.log(found);
     return (
    
         <Container>
@@ -139,7 +139,7 @@ const AddFormFound = ({places}) => {
                             </Form.Label>
 
                         <Form.Select aria-label="Place id" onChange={onAddFund} value={found.placeId}>
-                            <option value="">Seleccione un place</option>
+                            <option value="" disabled>Seleccione un place</option>
                             {nuevoArray.map((place) => (
                                 <option key={place.id} value={place.id}>
                                     {place.id} {place.name}

@@ -29,6 +29,16 @@ const getAllReviews = async () => {
     }
 }
 
+const getAllComments = async () => {
+    try {
+        const response = await fetch(`${URL}/Comments`)
+        return await response.json()
+
+    }catch(error) {
+        console.log("On getAllComments", error)
+    }
+}
+
 const getAllFounds = async () => {
     try {
         const response = await fetch(`${URL}/founds`)
@@ -46,6 +56,15 @@ const getFoundById = async (id) => {
     }catch(error) {
         console.log("On getFoundById", error)
     }
+}
+
+const getFoundByUser = async(id) =>{
+    try {
+        const response = await fetch(`${URL}/founds/user/${id}`)
+        return await response.json()
+    }catch(error) {
+        console.log("On getFoundByUser", error)
+    } 
 }
 
 
@@ -85,6 +104,8 @@ export {
     getAllReviews,
     getAllFounds,
     getPlaceByUser,
-    getFoundById
+    getFoundById,
+    getFoundByUser,
+    getAllComments
 
 }
