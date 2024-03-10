@@ -9,6 +9,16 @@ const getAllPlaces = async () => {
     }
 }
 
+const getPlaceById = async (id) => {
+    try {
+        const response = await fetch(`${URL}/places/${id}`)
+        return await response.json()
+    }catch(error) {
+        console.log("On getAllPlacesById", error)
+    }
+}
+
+
 const getAllReviews = async () => {
     try {
         const response = await fetch(`${URL}/reviews`)
@@ -19,13 +29,25 @@ const getAllReviews = async () => {
     }
 }
 
-const getPlaceById = async (id) => {
+const getAllFounds = async () => {
     try {
-        const response = await fetch(`${URL}/places/${id}`)
+        const response = await fetch(`${URL}/founds`)
+        return await response.json()
+
+    }catch(error) {
+        console.log("On getAllFounds", error)
+    }
+}
+
+
+
+const getPlaceByUser = async(id) =>{
+    try {
+        const response = await fetch(`${URL}/places/user/${id}`)
         return await response.json()
     }catch(error) {
         console.log("On getAllPlacesById", error)
-    }
+    } 
 }
 
 const getAllEvents = async () => {
@@ -51,5 +73,8 @@ export {
     getAllEvents,
     getPlaceById,
     getEventById,
-    getAllReviews
+    getAllReviews,
+    getAllFounds,
+    getPlaceByUser,
+
 }

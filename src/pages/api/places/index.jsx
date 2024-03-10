@@ -5,11 +5,20 @@ import Search from "../../../components/search";
 // importar la funcion que se encarga de traer todo los places
 import {getAllPlaces} from "../../../data/api"
 import Form from "react-bootstrap/Form"; 
-const PlacesApi = () => {
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+const PlacesApi = ({isLoggedIn}) => {
     const navigation = useNavigate();
     const [places, setPlaces] = useState([]);
     const [search, setSearch] = useState("");
     const [filteredPlaces, setFilteredPlaces] = useState(places);
+
+
+    const tokenString = localStorage.getItem('user-info');
+    const userToken = JSON.parse(tokenString);
+    if(userToken != null){
+        isLoggedIn= true
+    };
 
     useEffect(() => {
        const fetchPlaces = async () => {
@@ -62,8 +71,6 @@ const PlacesApi = () => {
                         </Form.Select>
 
                     </Form>
-
-
                     <Search value={search} onChange={handleChange} />
                     <Row xs={1} md={2} className="g-4">
                         {filteredPlaces.map((place) => <Col key={place.id}>
@@ -88,6 +95,21 @@ const PlacesApi = () => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
+                                {isLoggedIn &&(
+                                    <>
+                                        <InputGroup className="mb-3">
+                                            <Form.Control
+                                            placeholder="Comentario"
+                                            aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2"
+                                            />
+                                            <Button variant="outline-secondary" id="button-addon2">
+                                            Enviar
+                                            </Button>
+                                        </InputGroup>
+                                    </>
+                                 )
+                                }
                         </Col>
                         )}
                     </Row>

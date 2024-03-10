@@ -4,6 +4,7 @@ import {Container, Col, Row, Card} from "react-bootstrap";
 import {getPlaceById} from "../../../data/api"
 import { useParams } from 'react-router-dom';
 import ReviewsApi from "../reviews";    
+import FoundsForPlace from "../../../components/FoundsForPlace";
 const  DetailsApi = () => {
 
     const { id } = useParams();
@@ -38,10 +39,19 @@ const  DetailsApi = () => {
                                     {place.description}
                                 </Card.Text>
                                 <Card.Text>
-                                    {place.location}
+                                    <p>Location: {place.location}</p>
+                                </Card.Text>
+                                <Card.Text>
+                                   <p className="">Address: {place.address}</p>
                                 </Card.Text>
                                 <Card.Text>
                                     Calificación: {place.score} Stars
+                                </Card.Text>
+                                <Card.Text>
+                                    <p>Tipo: {place.type} </p>
+                                </Card.Text>
+                                <Card.Text>
+                                    <p>Caracteristicas: {place.characteristics} </p>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -49,6 +59,8 @@ const  DetailsApi = () => {
                                 <>
                                     
                                     <ReviewsApi place={place} />
+
+                                    <FoundsForPlace place={place}/>
                                 </>
                        
                     </Col>

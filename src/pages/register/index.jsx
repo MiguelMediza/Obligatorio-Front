@@ -51,8 +51,14 @@ const Register = ({handleRegister}) => {
 
         result = await result.json()
         localStorage.setItem("user-info",JSON.stringify(oneUser))
-        navigation('/')
+        console.log(result);
+        
+        localStorage.removeItem("user-info");
+        navigation('/login')
+        alert(`${result.message}`)
         setState(initialState.currentUser = oneUser)
+
+        {/*Insertar mensaje de creacion correctamente o no, debera logouearse nuevamente */}
         
     }
     return (

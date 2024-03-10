@@ -28,6 +28,7 @@ const Login = ({handleLogin}) => {
 
         });
         result = await result.json();
+        alert(`${result.message}`)
         localStorage.setItem("user-info",JSON.stringify(result.data.user))
         navigation('/')
     }

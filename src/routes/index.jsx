@@ -11,6 +11,7 @@ import DetailEvent from "../pages/detailEvent"
 import PlacesApi from "../pages/api/places";
 import EventsApi from "../pages/api/events";
 import DetailsApi from "../pages/api/details"
+import Founds from "../pages/api/founds";
 
 import initialState from "../data/initialState";
     const tokenString = localStorage.getItem('user-info');
@@ -41,11 +42,6 @@ const Router = () => {
 
     }
 
-    const getAllEvents = () => {
-        const events = state.places.map((place) => place.events || []).flat()
-        return events
-    }
-
 
     return(
         <BrowserRouter>
@@ -54,10 +50,10 @@ const Router = () => {
                     {/* pasar informacion para componentes */}
                     <Route path="/" element={<PlacesApi />} />
                     <Route path="/places" element={<PlacesApi />} />
-                    <Route path="/events" element={<EventsApi />} />
+                    <Route path="/founds" element={<Founds />} />
                     <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
                     <Route path="/register" element={<Register handleRegister={handleRegister}/>} />
-                    <Route path="/profile" element={<Profile events={getAllEvents()}/>} />
+                    <Route path="/profile" element={<Profile/>} />
                     <Route path="/details/:id" element={<DetailsApi />} />
                     <Route path="/details/:id/event/:ide" element={<DetailEvent places={state.places}/>} />
                 </Routes>
