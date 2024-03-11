@@ -49,11 +49,6 @@ const AddFormFound = ({places}) => {
             setErrorMessage("Debes ingresar una ciudad!")
             return false
         }
-        if(found.country.trim()==""){
-            setError(true)
-            setErrorMessage("Debes ingresar un país!")
-            return false
-        }
 
         return true
     }
@@ -126,9 +121,9 @@ const AddFormFound = ({places}) => {
         <Container>
             <Row>
                 <Col>
-                <h1>Add Found</h1>
+                <h1>Agregar objetos</h1>
                 <Accordion.Item eventKey="0">
-                <Accordion.Header>Click for add found</Accordion.Header>
+                <Accordion.Header>Desplegar Formulario</Accordion.Header>
                 <Accordion.Body>
                 <div className="m-3">
                 
@@ -139,11 +134,11 @@ const AddFormFound = ({places}) => {
                 </Error>}
                         <Form.Group controlId="placeId">
                         <Form.Label>
-                                Place ID
+                                ID del lugar
                             </Form.Label>
 
                         <Form.Select aria-label="Place id" onChange={onAddFund} value={found.placeId}>
-                            <option value="" disabled>Seleccione un place</option>
+                            <option value="" disabled>Seleccione el lugar</option>
                             {nuevoArray.map((place) => (
                                 <option key={place.id} value={place.id}>
                                     {place.id} {place.name}
@@ -153,7 +148,7 @@ const AddFormFound = ({places}) => {
                         </Form.Group>
                         <Form.Group controlId='name'>
                             <Form.Label>
-                                Found name
+                                Nombre del objeto
                             </Form.Label>
 
                             <Form.Control
@@ -166,7 +161,7 @@ const AddFormFound = ({places}) => {
 
                         <Form.Group controlId="description">
                             <Form.Label>
-                                Found description
+                                Descripción del objeto
                             </Form.Label>
 
                             <Form.Control
@@ -179,7 +174,7 @@ const AddFormFound = ({places}) => {
 
                         <Form.Group controlId="images">
                             <Form.Label>
-                                Images
+                                Imágenes
                             </Form.Label>
                             <Form.Control
                                 name="imageUrl"
@@ -191,7 +186,7 @@ const AddFormFound = ({places}) => {
                         
                         <Form.Group controlId="type">
                             <Form.Label>
-                                Type
+                                Tipo
                             </Form.Label>
                             <Form.Control
                                 type="text"
@@ -203,7 +198,7 @@ const AddFormFound = ({places}) => {
                         
                         <Form.Group controlId="region">
                             <Form.Label>
-                                Region
+                                Región
                             </Form.Label>
                             <Form.Control
                                 type="text"
@@ -216,7 +211,7 @@ const AddFormFound = ({places}) => {
 
                         <Form.Group controlId="city">
                             <Form.Label>
-                                City
+                                Ciudad
                             </Form.Label>
                             <Form.Control
                                 type="text"
@@ -228,19 +223,17 @@ const AddFormFound = ({places}) => {
 
                         <Form.Group controlId="country">
                             <Form.Label>
-                                Country
+                                País
                             </Form.Label>
-                            <Form.Control
-                                type="text"
-                                foundholder="Enter plance country"
-                                value={found.country}
-                                onChange={onAddFund}
-                            />
+                            <Form.Select>
+                                <option value="" disabled>Seleccione país</option>
+                                <option onChange={onAddFund} value={found.country}>Uruguay</option>
+                            </Form.Select>
                         </Form.Group>
 
 
                         <Button variant="primary" type="submit" className="m-2">
-                            Add Found
+                            Agregar objeto
                         </Button>
 
                     </Form>
