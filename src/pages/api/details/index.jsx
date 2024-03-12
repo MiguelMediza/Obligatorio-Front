@@ -13,10 +13,17 @@ const  DetailsApi = ({isLoggedIn}) => {
     const navigation = useNavigate();
     const { id } = useParams();
     const [place, setPlace] = useState([]);
-    const [comentario, setComentario] = useState({
-        userId: "",
-        placeId: id,
-        comment: ""
+    // const [comentario, setComentario] = useState({
+    //     userId: "",
+    //     placeId: id,
+    //     comment: ""
+    // });
+    const [review, setReview] = useState({
+        review: "",
+        rating: "",
+        placeId: 0,
+        userId: userToken.id,
+        foundId: 0
     });
     useEffect(() => {
         const fetchPlaces = async () => {
@@ -35,20 +42,31 @@ const  DetailsApi = ({isLoggedIn}) => {
         isLoggedIn= true
     };
 
-    const addComentario = (e) => {
+    // const addComentario = (e) => {
+    //     e.preventDefault()
+    //     const value = e.target.value;
+    //     const element = e.target.id;
+    //     setComentario(comentario.userId = userToken.id)
+    //     setComentario({...comentario, [element]: value})
+    // }
+
+    const addReview = (e) => {
         e.preventDefault()
         const value = e.target.value;
         const element = e.target.id;
-        setComentario(comentario.userId = userToken.id)
-        setComentario({...comentario, [element]: value})
+        setReview(review.userId = userToken.id)
+        setReview(review.placeId = id)
+        setReview(review.foundId = 1)
+        setReview({...review, [element]: value})
+        
     }
-    async function Comentar(event,comentario) {
+    async function Comentar(event,review) {
         event.preventDefault();
-        const response = confirm(`Estas seguro que quieres comentar?`)
+        const response = confirm(`Estas seguro que quieres hacer una review?`)
         if(response){
-            let result = await fetch(`https://history-hunters-api.onrender.com/comments/add`,{
+            let result = await fetch(`https://history-hunters-api.onrender.com/reviews/add`,{
                 method: 'POST',
-                body:JSON.stringify(comentario),
+                body:JSON.stringify(review),
                 headers:{
                     "Content-Type":'application/json',
                     "Accept": 'application/json'
@@ -57,12 +75,13 @@ const  DetailsApi = ({isLoggedIn}) => {
             result = await result.json()
             
             if(result.status == 201){
-                alert("Comentario agregado existosamente")
+                alert("Review agregada existosamente")
+                navigation(`/details/${id}`)
             }
             else{
-                alert("Ocurrio un error al agregar un comentario")
+                alert("Ocurrio un error al agregar una review")
             }
-            navigation('/profile')
+        
         }
     
     } 
@@ -107,7 +126,7 @@ const  DetailsApi = ({isLoggedIn}) => {
                                 {isLoggedIn &&(
                                                                             
                                     <>
-                                    <Form.Group controlId="comment">
+                                    {/* <Form.Group controlId="comment">
                                         <InputGroup  >
                                             <Form.Control 
                                             placeholder="Comentario"
@@ -120,10 +139,42 @@ const  DetailsApi = ({isLoggedIn}) => {
                                             Enviar
                                             </Button>
                                         </InputGroup>
-                                        </Form.Group>
+                                        </Form.Group> */}
+
+
+                                <Form className="mt-5" >
+                                    <Form.Label>Add Review</Form.Label>
+                                    <Form.Group className="mb-2" controlId="review">
+                                        <InputGroup  >
+                                            <Form.Control 
+                                            placeholder="Comentario"
+                                            aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2"
+                                            type="text"
+                                            onChange={addReview}
+                                            />
+                                        </InputGroup>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="rating">
+                                        <InputGroup  >
+                                            <Form.Control 
+                                            placeholder="rating"
+                                            aria-label="Recipient's username"
+                                            aria-describedby="basic-addon2"
+                                            type="number"
+                                            onChange={addReview}
+                                            />
+                            
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Button onClick={(event) => Comentar(event, review)} variant="outline-secondary" id="button-addon2">
+                                         Enviar
+                                    </Button>
+                                </Form>
                                     </>
 
-                                   
+                                    
                                     )
                                 }
                                 <>

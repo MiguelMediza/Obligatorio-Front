@@ -92,7 +92,7 @@ const AddPlaceForm = () => {
         type: "",
         characteristics: "",
         score: 0,
-        country: "",
+        country: "Uruguay",
         region: ""
     })
 
@@ -142,9 +142,9 @@ const AddPlaceForm = () => {
 
             <Row>
                 <Col>
-                <h1 className="text-red-600	">Add Place</h1>
+                <h1 className="text-red-600	">Agregar lugar</h1>
                 <Accordion.Item eventKey="0">
-                <Accordion.Header>Click for add place</Accordion.Header>
+                <Accordion.Header>Desplegar formulario</Accordion.Header>
                 <Accordion.Body>
                 <div className="m-3">
                 
@@ -155,12 +155,12 @@ const AddPlaceForm = () => {
                 </Error>}
                         <Form.Group controlId="name">
                             <Form.Label>
-                                Place name
+                                Nombre del lugar
                             </Form.Label>
 
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance name"
+                                placeholder="Enter place name"
                                 value={place.name}
                                 onChange={onAddPlace}
                             />
@@ -168,12 +168,12 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="description">
                             <Form.Label>
-                                Place description
+                                Lugar descripción
                             </Form.Label>
 
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance description"
+                                placeholder="Enter place description"
                                 value={place.description}
                                 onChange={onAddPlace}
                             />
@@ -181,11 +181,11 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="address">
                             <Form.Label>
-                                Address
+                                Dirección
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance address"
+                                placeholder="Enter place address"
                                 value={place.address}
                                 onChange={onAddPlace}
                             />
@@ -197,7 +197,7 @@ const AddPlaceForm = () => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance latitude"
+                                placeholder="Enter place latitude"
                                 value={place.latitude}
                                 onChange={onAddPlace}
                             />
@@ -209,7 +209,7 @@ const AddPlaceForm = () => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance loongitude"
+                                placeholder="Enter place loongitude"
                                 value={place.longitude}
                                 onChange={onAddPlace}
                             />
@@ -217,12 +217,12 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="images">
                             <Form.Label>
-                                Images
+                                Imagen
                             </Form.Label>
                             <Form.Control
                                 name="imageUrl"
                                 type="url"
-                                placeholder="Enter plance image"
+                                placeholder="Enter place image"
                                 onChange={handleImageChange}
                             />
                         </Form.Group>
@@ -232,7 +232,7 @@ const AddPlaceForm = () => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance location"
+                                placeholder="Enter place location"
                                 value={place.location}
                                 onChange={onAddPlace}
                             />
@@ -240,11 +240,11 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="type">
                             <Form.Label>
-                                Type
+                                Tipo
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance type"
+                                placeholder="Enter place type"
                                 value={place.type}
                                 onChange={onAddPlace}
                             />
@@ -252,11 +252,11 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="characteristics">
                             <Form.Label>
-                                Characteristics
+                                Características
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance characteristics"
+                                placeholder="Enter place characteristics"
                                 value={place.characteristics}
                                 onChange={onAddPlace}
                             />
@@ -264,11 +264,11 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="score">
                             <Form.Label>
-                                Score
+                                Puntuación
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance Score"
+                                placeholder="Enter place Score"
                                 value={place.score}
                                 onChange={onAddPlace}
                             />
@@ -276,11 +276,11 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="country">
                             <Form.Label>
-                                Country
+                                País
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance country"
+                                placeholder="Enter place country"
                                 value={place.country}
                                 onChange={onAddPlace}
                             />
@@ -288,18 +288,18 @@ const AddPlaceForm = () => {
 
                         <Form.Group controlId="region">
                             <Form.Label>
-                                Region
+                                Región
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter plance region"
+                                placeholder="Enter place region"
                                 value={place.region}
                                 onChange={onAddPlace}
                             />
                         </Form.Group>
 
                         <Button variant="primary" type="submit" className="m-2 text-center">
-                            Add Place
+                            Agregar lugar
                         </Button>
 
                     </Form>

@@ -49,6 +49,11 @@ const AddFormFound = ({places}) => {
             setErrorMessage("Debes ingresar una ciudad!")
             return false
         }
+        if(document.getElementById("country").value == ""){
+            setError(true)
+            setErrorMessage("Debes seleccionar un país!")
+            return false
+        }
 
         return true
     }
@@ -63,7 +68,7 @@ const AddFormFound = ({places}) => {
         type: "",
         region: "",
         city: "",
-        country: ""
+        country: "Uruguay"
     })
 
     const handleAddFound = (e) => {
@@ -153,7 +158,7 @@ const AddFormFound = ({places}) => {
 
                             <Form.Control
                                 type="text"
-                                foundholder="Enter plance name"
+                                foundholder="Enter found name"
                                 value={found.name}
                                 onChange={onAddFund}
                             />
@@ -166,7 +171,7 @@ const AddFormFound = ({places}) => {
 
                             <Form.Control
                                 type="text"
-                                foundholder="Enter plance description"
+                                foundholder="Enter found description"
                                 value={found.description}
                                 onChange={onAddFund}
                             />
@@ -179,7 +184,7 @@ const AddFormFound = ({places}) => {
                             <Form.Control
                                 name="imageUrl"
                                 type="url"
-                                placeholder="Enter plance image"
+                                placeholder="Enter found image"
                                 onChange={handleImageChange}
                             />
                         </Form.Group>
@@ -190,7 +195,7 @@ const AddFormFound = ({places}) => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                foundholder="Enter plance type"
+                                foundholder="Enter found type"
                                 value={found.type}
                                 onChange={onAddFund}
                             />
@@ -202,7 +207,7 @@ const AddFormFound = ({places}) => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                foundholder="Enter plance region"
+                                foundholder="Enter found region"
                                 value={found.region}
                                 onChange={onAddFund}
                             />
@@ -215,7 +220,7 @@ const AddFormFound = ({places}) => {
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                foundholder="Enter plance city"
+                                foundholder="Enter found city"
                                 value={found.city}
                                 onChange={onAddFund}
                             />
@@ -225,12 +230,13 @@ const AddFormFound = ({places}) => {
                             <Form.Label>
                                 País
                             </Form.Label>
-                            <Form.Select>
-                                <option value="" disabled>Seleccione país</option>
-                                <option onChange={onAddFund} value={found.country}>Uruguay</option>
-                            </Form.Select>
+                            <Form.Control
+                                type="text"
+                                foundholder="Enter found country"
+                                value={found.country}
+                                onChange={onAddFund}
+                            />
                         </Form.Group>
-
 
                         <Button variant="primary" type="submit" className="m-2">
                             Agregar objeto
