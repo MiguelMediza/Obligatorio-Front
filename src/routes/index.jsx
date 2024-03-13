@@ -12,6 +12,8 @@ import DetailsApi from "../pages/api/details"
 import Founds from "../pages/api/founds";
 import DetailsFound from '../pages/api/detailsFound'
 import initialState from "../data/initialState";
+import ProfileUser from "../pages/api/profileUser";
+
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
 const Router = () => {
@@ -60,6 +62,7 @@ const Router = () => {
                     <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
                     <Route path="/register" element={<Register handleRegister={handleRegister}/>} />
                     <Route path="/profile" element={<Profile places={places}/>} />
+                    <Route path="/userprofile/:id" element={<ProfileUser/>} />
                     <Route path="/details/:id" element={<DetailsApi />} />
                     <Route path="/detailsFound/:id" element={<DetailsFound />} />
                 </Routes>

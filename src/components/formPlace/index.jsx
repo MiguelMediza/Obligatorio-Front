@@ -107,8 +107,6 @@ const AddPlaceForm = () => {
 
     }
 
-
-
     async function AgregarPlace(){
         let result = await fetch("https://history-hunters-api.onrender.com/places/add",{
             method: 'POST',

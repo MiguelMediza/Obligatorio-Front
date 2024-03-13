@@ -4,24 +4,35 @@ import { useState, useEffect } from 'react';
 import { getFoundByUser } from '../../data/api'
 import Search from '../search';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const FoundForUser = () => {
+const FoundForUser = (props) => {
     const [founds, setFound] = useState([]);
     const [search, setSearch] = useState("");
     const [filteredFounds, setFilteredFounds] = useState(founds);
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
+    const { id } = useParams();
 
     const navigation = useNavigate();
 
+
     useEffect(() => {
         const fetchFounds = async () => {
-             const response = await getFoundByUser(userToken.id)
+            if(props.verUser == true){
+                var response = await getFoundByUser(props.idUser)
+
+            }
+            else{
+                  response = await getFoundByUser(userToken.id)
+
+            }
+             
              setFound(response.data)
         }
-        fetchFounds().then()
+        fetchFounds().then();
      }, []) 
-
+     
      async function EliminarFound(event,id) {
         event.preventDefault();
         const response = confirm(`Estas seguro que deseas eliminar este found?`)
@@ -61,7 +72,13 @@ const FoundForUser = () => {
         const value = event.target.value
         setSearch(value)
     }
-    const FoundsDelUser = founds.filter((found) => found.userId === userToken.id);
+    if(props.verUser == true){
+        var FoundsDelUser = founds.filter((found) => found.userId == props.idUser);
+    }
+    else{
+       var  FoundsDelUser = founds.filter((found) => found.userId == userToken.id);
+    }
+     
   return (
     <div className="m-5">
     <Container>
@@ -70,10 +87,17 @@ const FoundForUser = () => {
        
         
         <Row xs={1} md={2} className="g-4">
+            {props.verUser && props.verUser == true ?
+            (
+                <h1 className='text-center'>Founds del user</h1>
+            ):
+            (
+                <h1 className='text-center'>Mis founds</h1>
+            )}
         {FoundsDelUser && FoundsDelUser.length > 0 ? 
             (
                 <>
-                    <h1 className='text-center'>Mis founds</h1>
+                    
                     <Search value={search} onChange={handleChange} />
                     { filteredFounds.map((found) => <Col key={found.id}>
                         <Card onClick={(event) => handleClick(event, found.id)}>

@@ -60,6 +60,13 @@ const  DetailsApi = ({isLoggedIn}) => {
         setReview({...review, [element]: value})
         
     }
+
+    const VerUser = (e, userId) => {
+        e.preventDefault();
+        navigation(`/userprofile/${userId}`)
+        
+    }
+
     async function Comentar(event,review) {
         event.preventDefault();
         const response = confirm(`Estas seguro que quieres hacer una review?`)
@@ -93,7 +100,7 @@ const  DetailsApi = ({isLoggedIn}) => {
             <Row xs={1} md={1} className="g-4">
                 
                     <Col >
-                        <Card>
+                        <Card onClick={(event) => VerUser(event, place.userId)}>
                             <Card.Img variant="top" src={imageUrl} />
                             <Card.Body>
                                 <Card.Title>{place.name}</Card.Title>
