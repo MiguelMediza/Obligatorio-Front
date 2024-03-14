@@ -24,8 +24,7 @@ const FoundForUser = (props) => {
 
             }
             else{
-                  response = await getFoundByUser(userToken.id)
-
+                response = await getFoundByUser(userToken.id)
             }
              
              setFound(response.data)
@@ -65,7 +64,7 @@ const FoundForUser = (props) => {
     const handleClick = (event, id) => {
         event.preventDefault();
         // TODO redirigir a la página de detalle
-        navigation(`/details/${id}`);
+        navigation(`/detailsFound/${id}`);
     }
 
     const handleChange = (event)=> {
@@ -76,7 +75,7 @@ const FoundForUser = (props) => {
         var FoundsDelUser = founds.filter((found) => found.userId == props.idUser);
     }
     else{
-       var  FoundsDelUser = founds.filter((found) => found.userId == userToken.id);
+       var FoundsDelUser = founds.filter((found) => found.userId == userToken.id);
     }
      
   return (
@@ -112,7 +111,14 @@ const FoundForUser = (props) => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                        <Button variant="outline-danger" onClick={(event) => EliminarFound(event, found.id)}>Eliminar</Button>
+                        {props.verUser && props.verUser == true ?
+            (
+                <></>
+            ):
+            (
+                <Button variant="outline-danger" onClick={(event) => EliminarFound(event, found.id)}>Eliminar</Button>
+            )}
+                        
                     </Col>
                     )}
                 </>

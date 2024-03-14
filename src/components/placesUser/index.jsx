@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { getPlaceByUser } from '../../data/api'
 import Search from '../search';
 import { useNavigate } from 'react-router-dom';
-const PlacesForUser = () => {
+import { useParams } from 'react-router-dom';
+const PlacesForUser = (props) => {
     const [places, setPlaces] = useState([]);
     const [search, setSearch] = useState("");
     const [filteredPlaces, setFilteredPlaces] = useState(places);
@@ -15,7 +16,13 @@ const PlacesForUser = () => {
 
     useEffect(() => {
         const fetchPlaces = async () => {
-             const response = await getPlaceByUser(userToken.id)
+            if(props.verUser == true){
+                var response = await getPlaceByUser(props.idUser)
+            }
+            else{
+                response = await getPlaceByUser(userToken.id)
+            }
+             
              setPlaces(response.data)
         }
         fetchPlaces().then()
@@ -61,7 +68,14 @@ const PlacesForUser = () => {
         const value = event.target.value
         setSearch(value)
     }
-    const PlacesDelUser = places.filter((place) => place.userId === userToken.id);
+
+    if(props.verUser == true){
+        var PlacesDelUser = places.filter((place) => place.userId == props.idUser);
+    }
+    else{
+         PlacesDelUser = places.filter((place) => place.userId == userToken.id);
+    }
+    
   return (
     <div className="m-5">
     <Container>
@@ -69,10 +83,16 @@ const PlacesForUser = () => {
 
         
         <Row xs={1} md={2} className="g-4">
+        {props.verUser && props.verUser == true ?
+            (
+                <h1 className='text-center'>Places del user</h1>
+            ):
+            (
+                <h1 className='text-center'>Mis places</h1>
+            )}
         {PlacesDelUser && PlacesDelUser.length > 0 ? 
             (
                 <>
-                    <h1 className='text-center'>Mis places</h1>
                     <Search value={search} onChange={handleChange} />
             {filteredPlaces.map((place) => <Col key={place.id}>
                 <Card onClick={(event) => handleClick(event, place.id)}>
@@ -97,7 +117,14 @@ const PlacesForUser = () => {
                     </Card.Body>
                     
                 </Card>
+                {props.verUser && props.verUser == true ?
+            (
+                <></>
+            ):
+            (
                 <Button variant="outline-danger" onClick={(event) => EliminarPlace(event, place.id)}>Eliminar</Button>
+            )}
+                
             </Col>
             
             )}

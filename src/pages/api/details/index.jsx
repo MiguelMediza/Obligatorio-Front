@@ -22,7 +22,7 @@ const  DetailsApi = ({isLoggedIn}) => {
         review: "",
         rating: "",
         placeId: 0,
-        userId: userToken.id,
+        userId: 0,
         foundId: 0
     });
     useEffect(() => {
@@ -83,7 +83,7 @@ const  DetailsApi = ({isLoggedIn}) => {
             
             if(result.status == 201){
                 alert("Review agregada existosamente")
-                navigation(`/details/${id}`)
+                window.location.reload(false);
             }
             else{
                 alert("Ocurrio un error al agregar una review")

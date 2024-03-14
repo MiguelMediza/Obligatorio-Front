@@ -3,6 +3,7 @@ import {Container, Col, Row, Card, InputGroup, Form, Button} from "react-bootstr
 // importar la funcion que se encarga de traer todo los founds
 import {getFoundById} from "../../../data/api"
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import ReviewsApi from "../../../components/reviews";    
 
 const DetailsFound = ({isLoggedIn}) => {
@@ -10,11 +11,12 @@ const DetailsFound = ({isLoggedIn}) => {
     const [found, setFound] = useState([]);
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
+    const navigation = useNavigate();
     const [review, setReview] = useState({
         review: "",
         rating: "",
         placeId: 0,
-        userId: userToken.id,
+        userId: 0,
         foundId: 0
     });
     useEffect(() => {
@@ -40,9 +42,16 @@ const DetailsFound = ({isLoggedIn}) => {
         setReview({...review, [element]: value})
         
     }
-    // if(userToken != null){
-    //     isLoggedIn= true
-    // };
+    if(userToken != null){
+        isLoggedIn= true
+    };
+
+    const VerUser = (e, userId) => {
+        e.preventDefault();
+        navigation(`/userprofile/${userId}`)
+        
+    }
+
     // console.log(review);
     // async function Comentar(event,review) {
     //     event.preventDefault();
@@ -76,7 +85,7 @@ const DetailsFound = ({isLoggedIn}) => {
             <Row xs={1} md={1} className="g-4">
                 
                     <Col >
-                        <Card>
+                        <Card onClick={(event) => VerUser(event, found.userId)}>
                             <Card.Img variant="top" src={imageUrl} />
                             <Card.Body>
                                 <Card.Title>{found.name}</Card.Title>

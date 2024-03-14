@@ -129,6 +129,7 @@ const AddPlaceForm = () => {
         e.preventDefault()
         const value = e.target.value;
         const element = e.target.id;
+        console.log(place);
         setPlace({...place, [element]: value})
     }
 
