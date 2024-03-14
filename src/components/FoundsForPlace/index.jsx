@@ -29,7 +29,14 @@ const FoundsForPlace = ({place}) => {
 
             <div className="m-5">
                 <Container>
-                    <h1 className='text-center'>Objetos encontrados en este lugar</h1>
+                {FoundsPlace && FoundsPlace.length > 0 ?
+            (
+                <h1 className='text-center'>Objetos encontrados en este lugar</h1>
+            ):
+            (
+                <h1 className='text-center'>No se han encontrado objetos aun ...</h1>
+            )}
+                    
                     {/* TODO crear comoponente busqueda y agregarlo */}
                     <Row xs={1} md={2} className="g-4">
                         {FoundsPlace.map((found) => <Col key={found.id}>

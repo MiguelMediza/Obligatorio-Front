@@ -7,6 +7,7 @@ import ReviewsApi from "../../../components/reviews";
 import Comments from "../../../components/comments";
 import FoundsForPlace from "../../../components/FoundsForPlace";
 import { useNavigate } from "react-router-dom";
+import Accordion from 'react-bootstrap/Accordion';
 const  DetailsApi = ({isLoggedIn}) => {
     const tokenString = localStorage.getItem('user-info');
     const userToken = JSON.parse(tokenString);
@@ -148,9 +149,12 @@ const  DetailsApi = ({isLoggedIn}) => {
                                         </InputGroup>
                                         </Form.Group> */}
 
-
+                            <Accordion className="mt-5" defaultActiveKey="">
+                            <Accordion.Item eventKey="0">
+                            <Accordion.Header>Agregar Review</Accordion.Header>
+                                <Accordion.Body>
                                 <Form className="mt-5" >
-                                    <Form.Label>Add Review</Form.Label>
+                        
                                     <Form.Group className="mb-2" controlId="review">
                                         <InputGroup  >
                                             <Form.Control 
@@ -179,6 +183,9 @@ const  DetailsApi = ({isLoggedIn}) => {
                                          Enviar
                                     </Button>
                                 </Form>
+                                </Accordion.Body>
+                                </Accordion.Item>
+                                </Accordion>
                                     </>
 
                                     
